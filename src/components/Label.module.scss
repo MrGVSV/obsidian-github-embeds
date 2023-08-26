@@ -1,0 +1,50 @@
+.label {
+	display: inline-flex;
+	justify-content: center;
+	padding: 0 var(--size-4-2);
+	border: 1px solid transparent;
+	border-radius: 2em;
+	overflow: hidden;
+
+	a {
+		color: inherit !important;
+		font-size: var(--font-smaller);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+}
+
+// The following is based on GitHub's label colors, extracted from Chrome DevTools.
+.label {
+	--perceived-lightness: calc(
+		((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255
+	);
+	--lightness-switch: max(0, min(calc((1 / (var(--lightness-threshold) - var(--perceived-lightness)))), 1));
+
+	background: rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha));
+	border-color: hsla(
+		var(--label-h),
+		calc(var(--label-s) * 1%),
+		calc((var(--label-l) + var(--lighten-by)) * 1%),
+		var(--border-alpha)
+	);
+
+	&.dark {
+		--lightness-threshold: 0.6;
+		--background-alpha: 0.18;
+		--border-alpha: 0.3;
+		--lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
+
+		color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%));
+	}
+
+	&:not(.dark) {
+		--lightness-threshold: 0.453;
+		--background-alpha: 1;
+		--border-threshold: 0.96;
+		--border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
+		--lighten-by: -25;
+
+		color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%));
+	}
+}

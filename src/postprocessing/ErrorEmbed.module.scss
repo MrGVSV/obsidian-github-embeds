@@ -1,0 +1,29 @@
+@import '../styles';
+
+.embed {
+	@include base-embed;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: var(--size-4-2);
+
+	padding-top: var(--size-4-4);
+	padding-bottom: var(--size-4-4);
+	color: var(--background-modifier-error);
+
+	p {
+		$max-lines: 3;
+
+		margin: 0;
+		padding: 0;
+
+		//display: block;
+		//line-height: calc(var(--line-height-normal) * var(--font-text-size));
+		//max-height: calc((var(--line-height-normal) * #{$max-lines} * var(--font-text-size)));
+		//overflow: hidden;
+		//text-overflow: ellipsis;
+		//word-wrap: break-word;
+	}
+}

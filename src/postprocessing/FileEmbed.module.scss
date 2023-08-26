@@ -1,0 +1,35 @@
+@import '../styles';
+
+.embed {
+	.title {
+		font-size: var(--font-text-size);
+		font-weight: 400;
+		color: var(--text-normal);
+		text-decoration-thickness: 1px;
+		text-decoration: none;
+
+		.link-text {
+			text-decoration: underline;
+			text-decoration-thickness: 1px;
+		}
+
+		.lines {
+			color: var(--text-muted);
+			font-size: var(--font-smallest);
+			padding-left: var(--size-4-1);
+		}
+	}
+
+	.prefix {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: var(--size-4-2);
+	}
+
+	.repo-link {
+	}
+
+	.ref-link {
+	}
+}

@@ -1,0 +1,25 @@
+fragment Author on Actor {
+	url
+	login
+	avatarUrl
+}
+
+fragment Label on Label {
+	__typename
+	id
+	url
+	name
+	color
+	description
+}
+
+fragment Repo on Repository {
+	__typename
+	id
+	url
+	name
+	openGraphImageUrl
+	owner {
+		login
+	}
+}

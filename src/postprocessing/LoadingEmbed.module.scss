@@ -1,0 +1,32 @@
+@import '../styles';
+
+.embed {
+	@include base-embed;
+
+	padding-top: var(--size-4-4);
+	padding-bottom: var(--size-4-4);
+
+	p {
+		@media (prefers-reduced-motion: no-preference) {
+			animation: pulse 3.5s ease-in-out infinite;
+		}
+
+		margin: 0;
+		padding: 0;
+	}
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 1;
+	}
+	25% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	75% {
+		opacity: 1;
+	}
+}

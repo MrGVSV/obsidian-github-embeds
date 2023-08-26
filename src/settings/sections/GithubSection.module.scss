@@ -1,0 +1,8 @@
+.perm {
+	&-title {
+		font-weight: var(--font-semibold);
+	}
+	&-readonly {
+		color: var(--text-faint);
+	}
+}

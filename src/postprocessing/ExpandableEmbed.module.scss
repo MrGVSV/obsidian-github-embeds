@@ -1,0 +1,69 @@
+@import '../styles';
+
+$link-color: var(--text-faint);
+
+.embed {
+	@include foldout;
+	font-size: var(--font-text-size);
+	font-weight: var(--font-normal);
+	line-height: var(--line-height-normal);
+}
+
+.summary {
+	display: grid;
+	grid-template-areas:
+		'......... prefix'
+		'indicator heading'
+		'......... info';
+	grid-template-columns: min-content 1fr;
+
+	column-gap: var(--size-4-2);
+	align-items: center;
+
+	a {
+		color: var(--text-faint);
+
+		&:focus-visible {
+			color: var(--text-accent-hover);
+		}
+	}
+
+	.indicator {
+		grid-area: indicator;
+	}
+
+	.prefix {
+		grid-area: prefix;
+
+		color: var(--text-faint);
+		font-size: var(--font-smallest);
+	}
+
+	.heading {
+		grid-area: heading;
+
+		display: inline-flex;
+		flex-wrap: wrap;
+		gap: var(--size-4-2);
+		margin: 0;
+		font-size: 1.35em;
+	}
+
+	.info {
+		grid-area: info;
+
+		display: flex;
+		margin: var(--size-4-1) 0;
+		color: var(--text-faint);
+		font-size: var(--font-smaller);
+	}
+}
+
+.info {
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--size-4-2);
+}
+
+.content {
+}

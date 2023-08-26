@@ -1,11 +1,14 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "obsidian-github-embeds",
+	"name": "GitHub Embeds",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "This is a sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Embed GitHub issues, PRs, and code snippets directly in Obsidian.",
+	"author": "Gino Valente",
+	"authorUrl": "https://github.com/MrGVSV",
+	"fundingUrl": {
+		"Buy Me a Coffee": "https://www.buymeacoffee.com/ginov",
+		"GitHub Sponsor": "https://github.com/sponsors/MrGVSV"
+	},
 	"isDesktopOnly": false
 }

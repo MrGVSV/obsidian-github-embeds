@@ -1,0 +1,63 @@
+query Issue($owner: String!, $repo: String!, $issue: Int!) {
+	repository(name: $repo, owner: $owner, followRenames: true) {
+		__typename
+		id
+		issueOrPullRequest(number: $issue) {
+			__typename
+			...Issue
+			...PullRequest
+		}
+	}
+}
+
+fragment PullRequest on PullRequest {
+	id
+	number
+	url
+	pullRequestState: state
+	isDraft
+	repository {
+		...Repo
+	}
+	title
+	pullRequestTitleHTML: titleHTML
+	bodyHTML
+	body
+	createdAt
+	author {
+		...Author
+	}
+	labels(first: 20) {
+		edges {
+			node {
+				...Label
+			}
+		}
+	}
+}
+
+fragment Issue on Issue {
+	id
+	number
+	url
+	issueState: state
+	issueStateReason: stateReason
+	repository {
+		...Repo
+	}
+	title
+	issueTitleHTML: titleHTML
+	bodyHTML
+	body
+	createdAt
+	author {
+		...Author
+	}
+	labels(first: 20) {
+		edges {
+			node {
+				...Label
+			}
+		}
+	}
+}

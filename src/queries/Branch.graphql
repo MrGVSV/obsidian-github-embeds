@@ -1,0 +1,7 @@
+query Branch($owner: String!, $repo: String!, $branch: String!) {
+	repository(owner: $owner, name: $repo) {
+		ref(qualifiedName: $branch) {
+			id
+		}
+	}
+}
