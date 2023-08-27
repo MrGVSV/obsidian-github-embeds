@@ -1,5 +1,2 @@
-schema:
-    - https://api.github.com/graphql:
-          headers:
-              Authorization: Bearer ${GITHUB_TOKEN}
-documents: "**/*.graphql"
+schema: schema.graphql
+documents: '**/*.graphql'

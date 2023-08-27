@@ -1,16 +1,8 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
-import 'dotenv/config';
 
 const config: CodegenConfig = {
 	overwrite: true,
-	schema: {
-		'https://api.github.com/graphql': {
-			headers: {
-				'authorization': `token ${process.env.GITHUB_TOKEN}`,
-				'user-agent': 'node.js',
-			},
-		},
-	},
+	schema: 'schema.graphql',
 	documents: 'src/**/*.graphql',
 	generates: {
 		'src/generated/graphql.schema.ts': {
