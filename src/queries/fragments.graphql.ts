@@ -1,5 +1,6 @@
-import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import type * as Types from '../generated/graphql.schema';
 
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Author_Bot_Fragment = {
 	readonly __typename: 'Bot';
 	readonly url: any;

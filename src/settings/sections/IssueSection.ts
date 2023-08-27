@@ -70,5 +70,19 @@ export class IssueSection extends BaseSection {
 				},
 				() => DefaultSettings.dateFormat,
 			);
+
+		new ResettableSetting(containerEl)
+			.setName('Show Total Comments')
+			.setDesc('If enabled, displays the total number of comments on the issue or pull request.')
+			.addResettableToggle(
+				(toggle) => {
+					toggle.setValue(plugin.settings.showTotalComments).onChange(async (value) => {
+						await plugin.modifySettings((settings) => {
+							settings.showTotalComments = value;
+						});
+					});
+				},
+				() => DefaultSettings.showTotalComments,
+			);
 	}
 }

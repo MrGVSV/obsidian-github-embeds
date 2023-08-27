@@ -7,4 +7,5 @@ export const DefaultSettings: Settings = {
 	labelDisplay: 'preview',
 	autoOpenThreshold: 10,
 	dateFormat: 'MMMM D, YYYY',
+	showTotalComments: true,
 };

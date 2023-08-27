@@ -1,7 +1,6 @@
 import type * as Types from '../generated/graphql.schema';
 
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-
 export type IssueQueryVariables = Types.Exact<{
 	owner: Types.Scalars['String']['input'];
 	repo: Types.Scalars['String']['input'];
@@ -82,6 +81,7 @@ export type IssueQuery = {
 							} | null;
 						} | null> | null;
 					} | null;
+					readonly comments: { readonly __typename: 'IssueCommentConnection'; readonly totalCount: number };
 			  }
 			| {
 					readonly __typename: 'PullRequest';
@@ -151,6 +151,7 @@ export type IssueQuery = {
 							} | null;
 						} | null> | null;
 					} | null;
+					readonly comments: { readonly __typename: 'IssueCommentConnection'; readonly totalCount: number };
 			  }
 			| null;
 	} | null;
@@ -204,6 +205,7 @@ export type PullRequestFragment = {
 			} | null;
 		} | null> | null;
 	} | null;
+	readonly comments: { readonly __typename: 'IssueCommentConnection'; readonly totalCount: number };
 };
 
 export type IssueFragment = {
@@ -254,6 +256,7 @@ export type IssueFragment = {
 			} | null;
 		} | null> | null;
 	} | null;
+	readonly comments: { readonly __typename: 'IssueCommentConnection'; readonly totalCount: number };
 };
 
 export const PullRequestFragmentDoc = {
@@ -336,6 +339,14 @@ export const PullRequestFragmentDoc = {
 									},
 								},
 							],
+						},
+					},
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'comments' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
 						},
 					},
 				],
@@ -479,6 +490,14 @@ export const IssueFragmentDoc = {
 									},
 								},
 							],
+						},
+					},
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'comments' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
 						},
 					},
 				],
@@ -750,6 +769,14 @@ export const IssueDocument = {
 							],
 						},
 					},
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'comments' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
+						},
+					},
 				],
 			},
 		},
@@ -830,6 +857,14 @@ export const IssueDocument = {
 									},
 								},
 							],
+						},
+					},
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'comments' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
 						},
 					},
 				],

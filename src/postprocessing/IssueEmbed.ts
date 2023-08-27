@@ -80,6 +80,28 @@ export class IssueEmbed extends ExpandableEmbed {
 			),
 		);
 
+		const commentContainer = container.createDiv(styles.comments);
+		commentContainer.ariaLabel = `Number of comments: ${issue.comments.totalCount}`;
+		this.register(
+			this.settings.onSettingsChanged(
+				(prev, curr) => {
+					if (prev?.showTotalComments === curr.showTotalComments) {
+						return;
+					}
+
+					commentContainer.empty();
+					if (curr.showTotalComments) {
+						commentContainer.toggleClass(styles.hidden, false);
+						setIcon(commentContainer.createSpan(styles.iconContainer), 'message-square');
+						commentContainer.createSpan({ text: issue.comments.totalCount.toString() });
+					} else {
+						commentContainer.toggleClass(styles.hidden, true);
+					}
+				},
+				{ immediate: true },
+			),
+		);
+
 		const labelsContainer = container.createDiv();
 		this.register(
 			this.settings.onSettingsChanged(
@@ -90,7 +112,10 @@ export class IssueEmbed extends ExpandableEmbed {
 
 					labelsContainer.empty();
 					if (curr.labelDisplay === 'preview') {
+						labelsContainer.toggleClass(styles.hidden, false);
 						this.createLabelList(labelsContainer);
+					} else {
+						labelsContainer.toggleClass(styles.hidden, true);
 					}
 				},
 				{ immediate: true },

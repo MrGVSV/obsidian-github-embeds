@@ -1,7 +1,6 @@
 import type * as Types from '../generated/graphql.schema';
 
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-
 export type BranchQueryVariables = Types.Exact<{
 	owner: Types.Scalars['String']['input'];
 	repo: Types.Scalars['String']['input'];

@@ -5,6 +5,7 @@ export interface Settings {
 	readonly labelDisplay: DisplayLocation;
 	readonly autoOpenThreshold: number;
 	readonly dateFormat: string;
+	readonly showTotalComments: boolean;
 }
 
 export type DisplayLocation = 'preview' | 'inside' | 'none';
