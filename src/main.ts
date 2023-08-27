@@ -34,7 +34,10 @@ export default class GithubEmbedsPlugin extends SettingsProvider {
 	}
 
 	private async processLink(link: HTMLAnchorElement, ctx: MarkdownPostProcessorContext) {
-		const parent = link.parentElement?.tagName === 'TD' ? link.parentElement : link.parentElement?.parentElement;
+		const parent =
+			link.parentElement?.tagName === 'TD' || link.parentElement?.tagName === 'LI'
+				? link.parentElement
+				: link.parentElement?.parentElement;
 		if (!parent) {
 			return;
 		}
