@@ -16,8 +16,6 @@ export class GitHubEmbedsSettingsTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new GithubSection(this);
-
-		containerEl.createEl('h1', { text: 'General' });
 		new IssueSection(this);
 		new FileSection(this);
 		new SupportSection(this);

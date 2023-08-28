@@ -1,7 +1,7 @@
 import { Settings, SettingsProvider } from '../settings';
 import styles from './ExpandableEmbed.module.scss';
-import { isIOS } from '../utilities';
 import { EmbedComponent } from './EmbedComponent';
+import {Platform} from "obsidian";
 
 /**
  * Base embed component.
@@ -91,7 +91,7 @@ export abstract class ExpandableEmbed extends EmbedComponent {
 		this.summaryEl.empty();
 
 		const indicator = this.summaryEl.createSpan({ text: '▶︎', cls: styles.indicator });
-		if (isIOS()) {
+		if (Platform.isIosApp) {
 			// Help out VoiceOver since it won't give focus to the `<summary />` element
 			// (at least, not without making all children unreachable).
 			indicator.role = 'button';

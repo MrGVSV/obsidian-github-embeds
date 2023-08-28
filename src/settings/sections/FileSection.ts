@@ -24,7 +24,7 @@ export class FileSection extends BaseSection {
 			);
 
 		new ResettableSetting(containerEl)
-			.setName('Snippet Preview Threshold')
+			.setName('Snippet preview threshold')
 			.setDesc('The maximum number of lines a file snippet can have before it defaults to closed.')
 			.addResettableText(
 				(text) => {

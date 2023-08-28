@@ -26,7 +26,7 @@ export class IssueSection extends BaseSection {
 			);
 
 		new ResettableSetting(containerEl)
-			.setName('Label Display')
+			.setName('Label display')
 			.setDesc('Determines how labels are displayed in embeds.')
 			.addResettableDropdown(
 				(dropdown) => {
@@ -54,7 +54,7 @@ export class IssueSection extends BaseSection {
 		dateDesc.createEl('br');
 		const dateSample = dateDesc.createSpan();
 		new ResettableSetting(containerEl)
-			.setName('Date Format')
+			.setName('Date format')
 			.setDesc(dateDesc)
 			.addResettableMomentFormat(
 				(component) => {
@@ -72,7 +72,7 @@ export class IssueSection extends BaseSection {
 			);
 
 		new ResettableSetting(containerEl)
-			.setName('Show Total Comments')
+			.setName('Show total comments')
 			.setDesc('If enabled, displays the total number of comments on the issue or pull request.')
 			.addResettableToggle(
 				(toggle) => {

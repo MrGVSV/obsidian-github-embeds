@@ -2,9 +2,7 @@ import { App, EventRef, Vault } from 'obsidian';
 
 /** The {@link Vault} properties not exposed by Obsidian */
 interface SecretVault extends Vault {
-	config?: {
-		theme?: Theme;
-	};
+	getConfig(key: 'theme'): Theme;
 }
 
 /** The possible themes in Obsidian */
@@ -21,11 +19,7 @@ type Theme =
  * or if set to `System` and the system is set to dark mode.
  */
 export function isDarkMode(app: App): boolean {
-	const theme = (app.vault as SecretVault).config?.theme;
-
-	if (theme === undefined) {
-		return document.body.hasClass('theme-dark');
-	}
+	const theme = (app.vault as SecretVault).getConfig('theme');
 
 	if (theme === 'system') {
 		return matchMedia('(prefers-color-scheme: dark)').matches;

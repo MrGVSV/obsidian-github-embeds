@@ -4,10 +4,9 @@ import styles from './GithubSection.module.scss';
 
 export class GithubSection extends BaseSection {
 	protected title(): string | undefined {
-		return undefined;
+		return 'GitHub';
 	}
 	protected onload() {
-		this.containerEl.createEl('h1', { text: 'GitHub' });
 		this.createTokenSetting();
 	}
 
@@ -37,7 +36,7 @@ export class GithubSection extends BaseSection {
 
 		let tokenInput: HTMLInputElement | null = null;
 		new Setting(containerEl)
-			.setName('GitHub Personal Access Token')
+			.setName('GitHub personal access token')
 			.setDesc(desc)
 			.addText((text) => {
 				tokenInput = text.inputEl;

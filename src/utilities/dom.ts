@@ -23,16 +23,7 @@ export function findClass(classList: DOMTokenList, regex: RegExp): RegExpExecArr
  * @param component - A parent component to manage the lifecycle of the rendered child components.
  */
 export function renderMarkdown(app: App, markdown: string, el: HTMLElement, component: Component) {
-	MarkdownRenderer.render(this.app, markdown, el, '', component).catch((err) => {
+	MarkdownRenderer.render(app, markdown, el, '', component).catch((err) => {
 		console.error('Error rendering markdown', err);
 	});
-}
-
-export function replaceChild<C1 extends MarkdownRenderChild, C2 extends MarkdownRenderChild>(
-	prev: C1,
-	curr: C2,
-	ctx: MarkdownPostProcessorContext,
-) {
-	ctx.addChild(curr);
-	prev.containerEl.replaceWith(curr.containerEl);
 }
