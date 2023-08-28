@@ -28,7 +28,9 @@ Snippets can also be limited to one or more lines. If we wanted a file to only s
 
 #### Authentication
 
-In order to make use of GitHub's API, calls need to be authenticated. Because of that, this plugin requires you to [create a personal access token](https://github.com/settings/tokens?type=beta) with the following permissions:
+In order to make use of GitHub's API, calls need to be authenticated. Because of that, this plugin requires you to [create a personal access token](https://github.com/settings/tokens?type=beta).
+
+By default, the token will be generated with the **Repository access** set to **Public repositories (read-only)**. To allow this plugin to also work with private repositories, change the access to **All repositories** and give it at minimum the following repository permissions:
 
 - **Contents** (*Read-only*)
 - **Issues** (*Read-only*)

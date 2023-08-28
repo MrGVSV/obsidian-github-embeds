@@ -19,7 +19,7 @@ export class GithubSection extends BaseSection {
 			Used to authenticate with the GitHub API. Create one <a href="https://github.com/settings/tokens?type=beta">here</a>.
 			<br/>
 			<br/>
-			In order for this plugin to work properly, the token must have at least the following permissions:
+			In order for this plugin to work properly with private repositories, the token must have at least the following permissions:
 			<ul>
 				<li class="${styles.perm}">
 					<span class="${styles.permTitle}">Contents</span> <span class="${styles.permReadonly}">(Read-only)</span>
