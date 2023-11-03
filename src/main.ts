@@ -38,16 +38,17 @@ export default class GithubEmbedsPlugin extends SettingsProvider {
 			link.parentElement?.tagName === 'TD' || link.parentElement?.tagName === 'LI'
 				? link.parentElement
 				: link.parentElement?.parentElement;
+
 		if (!parent) {
 			return;
 		}
 
-		const container = new EmbedContainer(parent.createEl('p', styles.embedContainer), ctx);
+		const createContainer = () => new EmbedContainer(parent.createEl('p', styles.embedContainer), ctx);
 
 		if (Client.isIssueUrl(link.href)) {
-			await this.createIssueEmbed(link.href, container);
+			await this.createIssueEmbed(link.href, createContainer());
 		} else if (Client.isFileUrl(link.href)) {
-			await this.createFileEmbed(link.href, container);
+			await this.createFileEmbed(link.href, createContainer());
 		}
 	}
 
