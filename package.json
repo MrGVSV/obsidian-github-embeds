@@ -1,6 +1,6 @@
 {
 	"name": "github-embeds",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Embed GitHub issues, PRs, and code snippets directly in Obsidian.",
 	"main": "main.js",
 	"scripts": {
