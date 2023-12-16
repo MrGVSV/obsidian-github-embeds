@@ -118,7 +118,11 @@ export class Client {
 			`https://api.github.com/repos/${owner}/${repo}/contents/${path}${refParam}`,
 		)
 			.then((res) => res.json())
-			.then((json: Content) => atob(json.content));
+			.then((json: Content) => {
+				const decoder = new TextDecoder();
+				const buff = Buffer.from(json.content, 'base64');
+				return decoder.decode(buff);
+			});
 
 		let isCommit = false;
 
