@@ -1,34 +1,31 @@
 import styles from './Label.module.scss';
-import { App, Component } from 'obsidian';
-import { isDarkMode, onCssChange } from '../utilities';
-import { LabelFragment } from '../queries/fragments.graphql';
 import tinycolor from 'tinycolor2';
+import { Shard } from './core';
+import { SettingsProvider } from '../settings';
+import { LabelFragment } from '../queries/fragments.graphql';
 
 /**
  * Component to display a GitHub label.
  */
-export class Label extends Component {
-	private labelEl: HTMLDivElement | null = null;
-	private linkEl: HTMLAnchorElement | null = null;
+export class Label extends Shard {
 	constructor(
-		private containerEl: HTMLElement,
+		parent: HTMLElement,
+		settings: SettingsProvider,
 		private data: LabelFragment,
-		private app: App,
 	) {
-		super();
+		super(parent, settings, 'div', styles.label);
 	}
 
 	onload() {
 		super.onload();
 
-		this.labelEl = this.containerEl.createDiv(styles.label);
-		this.labelEl.ariaLabel = this.data.description ?? null;
+		const { name, description, url, color } = this.data;
 
-		const color = tinycolor(`#${this.data.color}`);
-		const rgb = color.toRgb();
-		const hsl = color.toHsl();
+		const labelColor = tinycolor(`#${color}`);
+		const rgb = labelColor.toRgb();
+		const hsl = labelColor.toHsl();
 
-		this.labelEl.setAttr(
+		this.element.setAttr(
 			'style',
 			[
 				`--label-r: ${rgb.r}`,
@@ -40,16 +37,17 @@ export class Label extends Component {
 			].join('; '),
 		);
 
-		this.linkEl = this.labelEl.createEl('a');
-		this.linkEl.text = this.data.name;
-		this.linkEl.href = this.data.url;
+		this.createEl('a', { href: url, text: name });
 
-		this.setStyles(isDarkMode(this.app));
+		this.settings.onCssChange(
+			this,
+			({ isDarkMode }) => {
+				this.element?.toggleClass(styles.dark, isDarkMode);
+			},
+			{ immediate: true },
+		);
 
-		this.registerEvent(onCssChange(this.app, (isDarkMode) => this.setStyles(isDarkMode)));
-	}
-
-	private setStyles(isDarkMode: boolean) {
-		this.labelEl?.toggleClass(styles.dark, isDarkMode);
+		const desc = description ? `: ${description}` : '';
+		this.withTooltip(`${name}${desc}`);
 	}
 }

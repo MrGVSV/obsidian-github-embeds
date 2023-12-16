@@ -1,8 +1,9 @@
-import { Settings, SettingsListener, SettingsListenerOptions } from '../types';
-import { Plugin } from 'obsidian';
+import { EventListenerOptions, Settings, SettingsListener, SettingsListenerOptions } from '../types';
+import { Component, Plugin } from 'obsidian';
 import { DefaultSettings } from '../defaults';
 import { WritableDraft } from 'immer/src/types/types-external';
 import { produce } from 'immer';
+import { isDarkMode } from '../../utilities';
 
 type UnsubFunction = () => void;
 
@@ -34,6 +35,32 @@ export class SettingsProvider extends Plugin {
 		this.register(unsub);
 
 		return unsub;
+	}
+
+	/**
+	 * Register a callback to be called when the CSS changes.
+	 *
+	 * This will automatically register the listener for the given component,
+	 * removing it when the component is unloaded.
+	 */
+	public onCssChange(
+		component: Component,
+		callback: (state: { isDarkMode: boolean }) => void,
+		options: EventListenerOptions = {},
+	) {
+		if (options.immediate) {
+			callback({
+				isDarkMode: isDarkMode(this.app),
+			});
+		}
+
+		const eventRef = this.app.workspace.on('css-change', () => {
+			callback({
+				isDarkMode: isDarkMode(this.app),
+			});
+		});
+
+		component.registerEvent(eventRef);
 	}
 
 	async loadSettings() {

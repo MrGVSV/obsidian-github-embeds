@@ -30,6 +30,7 @@ export class EmbedContainer {
 	public setChild<T extends Component>(child: (containerEl: HTMLElement) => T): T {
 		if (this.currentChild) {
 			this.container.removeChild(this.currentChild);
+			this.containerEl.empty();
 		}
 
 		const component = child(this.containerEl);

@@ -13,7 +13,7 @@ import {
  */
 export class ResettableSetting extends Setting {
 	public addResettableDropdown<T extends string = string>(
-		cb: (component: DropdownComponent) => any,
+		cb: (component: DropdownComponent) => unknown,
 		onReset: (component: DropdownComponent) => T,
 	): this {
 		return super.addDropdown((component) => {
@@ -23,7 +23,7 @@ export class ResettableSetting extends Setting {
 	}
 
 	public addResettableToggle(
-		cb: (component: ToggleComponent) => any,
+		cb: (component: ToggleComponent) => unknown,
 		onReset: (component: ToggleComponent) => boolean,
 	): this {
 		return super.addToggle((component) => {
@@ -33,7 +33,7 @@ export class ResettableSetting extends Setting {
 	}
 
 	public addResettableText(
-		cb: (component: TextComponent) => any,
+		cb: (component: TextComponent) => unknown,
 		onReset: (component: TextComponent) => string,
 	): this {
 		return super.addText((component) => {
@@ -43,7 +43,7 @@ export class ResettableSetting extends Setting {
 	}
 
 	public addResettableMomentFormat(
-		cb: (component: MomentFormatComponent) => any,
+		cb: (component: MomentFormatComponent) => unknown,
 		onReset: (component: MomentFormatComponent) => string,
 	): this {
 		return super.addMomentFormat((component) => {

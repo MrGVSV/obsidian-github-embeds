@@ -1,0 +1,14 @@
+.container {
+	.link {
+		display: inline-flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		gap: var(--size-4-1);
+
+		.avatar {
+			width: 1em;
+			height: 1em;
+			border-radius: 0.5em;
+		}
+	}
+}

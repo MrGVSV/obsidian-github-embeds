@@ -3,6 +3,7 @@ import { Settings, SettingsProvider } from '../settings';
 import { FileSnippet } from '../client/types';
 import { renderMarkdown } from '../utilities';
 import { ExpandableEmbed } from './ExpandableEmbed';
+import { Shard } from '../components/core';
 
 export class FileEmbed extends ExpandableEmbed {
 	protected get rootClass(): string {
@@ -31,10 +32,10 @@ export class FileEmbed extends ExpandableEmbed {
 		this.tryToggle();
 	}
 
-	protected createHeadingPrefix(container: HTMLElement): void {
+	protected createHeadingPrefix(container: Shard): void {
 		const { owner, repo, ref } = this.file;
 
-		const prefix = container.createDiv(styles.prefix);
+		const prefix = container.createEl('div', styles.prefix);
 
 		const repoLink = `${owner}/${repo}`;
 		prefix.createEl('a', {
@@ -51,7 +52,7 @@ export class FileEmbed extends ExpandableEmbed {
 		});
 	}
 
-	protected createHeading(container: HTMLElement): void {
+	protected createHeading(container: Shard): void {
 		const { path, lines, url } = this.file;
 		const link = container.createEl('a', { href: url, cls: styles.title });
 		link.createSpan({ text: path, cls: styles.linkText });
@@ -59,15 +60,15 @@ export class FileEmbed extends ExpandableEmbed {
 		link.createSpan({ text: linesText, cls: styles.lines });
 	}
 
-	protected createInfo(container: HTMLElement): void {
+	protected createInfo(container: Shard): void {
 		// Spacer
-		container.createDiv();
+		container.createEl('div');
 	}
 
-	protected createContent(contentEl: HTMLDivElement): void {
+	protected createContent(container: Shard): void {
 		const { lang = '', snippetContent } = this.file;
 		const content = `\`\`\`${lang}\n${snippetContent}\n\`\`\``;
-		renderMarkdown(this.settings.app, content, contentEl, this);
+		renderMarkdown(this.settings.app, content, container.element, this);
 	}
 
 	private tryToggle() {

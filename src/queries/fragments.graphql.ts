@@ -1,47 +1,62 @@
 import type * as Types from '../generated/graphql.schema';
 
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type Author_Bot_Fragment = {
+export type User_Bot_Fragment = {
 	readonly __typename: 'Bot';
 	readonly url: any;
 	readonly login: string;
 	readonly avatarUrl: any;
 };
 
-export type Author_EnterpriseUserAccount_Fragment = {
+export type User_EnterpriseUserAccount_Fragment = {
 	readonly __typename: 'EnterpriseUserAccount';
 	readonly url: any;
 	readonly login: string;
 	readonly avatarUrl: any;
 };
 
-export type Author_Mannequin_Fragment = {
+export type User_Mannequin_Fragment = {
 	readonly __typename: 'Mannequin';
 	readonly url: any;
 	readonly login: string;
 	readonly avatarUrl: any;
 };
 
-export type Author_Organization_Fragment = {
+export type User_Organization_Fragment = {
 	readonly __typename: 'Organization';
 	readonly url: any;
 	readonly login: string;
 	readonly avatarUrl: any;
 };
 
-export type Author_User_Fragment = {
+export type User_User_Fragment = {
 	readonly __typename: 'User';
 	readonly url: any;
 	readonly login: string;
 	readonly avatarUrl: any;
 };
 
-export type AuthorFragment =
-	| Author_Bot_Fragment
-	| Author_EnterpriseUserAccount_Fragment
-	| Author_Mannequin_Fragment
-	| Author_Organization_Fragment
-	| Author_User_Fragment;
+export type UserFragment =
+	| User_Bot_Fragment
+	| User_EnterpriseUserAccount_Fragment
+	| User_Mannequin_Fragment
+	| User_Organization_Fragment
+	| User_User_Fragment;
+
+export type LabelConnectionFragment = {
+	readonly __typename: 'LabelConnection';
+	readonly edges?: ReadonlyArray<{
+		readonly __typename: 'LabelEdge';
+		readonly node?: {
+			readonly __typename: 'Label';
+			readonly id: string;
+			readonly url: any;
+			readonly name: string;
+			readonly color: string;
+			readonly description?: string | null;
+		} | null;
+	} | null> | null;
+};
 
 export type LabelFragment = {
 	readonly __typename: 'Label';
@@ -63,12 +78,12 @@ export type RepoFragment = {
 		| { readonly __typename: 'User'; readonly login: string };
 };
 
-export const AuthorFragmentDoc = {
+export const UserFragmentDoc = {
 	kind: 'Document',
 	definitions: [
 		{
 			kind: 'FragmentDefinition',
-			name: { kind: 'Name', value: 'Author' },
+			name: { kind: 'Name', value: 'User' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Actor' } },
 			selectionSet: {
 				kind: 'SelectionSet',
@@ -80,7 +95,7 @@ export const AuthorFragmentDoc = {
 			},
 		},
 	],
-} as unknown as DocumentNode<AuthorFragment, unknown>;
+} as unknown as DocumentNode<UserFragment, unknown>;
 export const LabelFragmentDoc = {
 	kind: 'Document',
 	definitions: [
@@ -102,6 +117,57 @@ export const LabelFragmentDoc = {
 		},
 	],
 } as unknown as DocumentNode<LabelFragment, unknown>;
+export const LabelConnectionFragmentDoc = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'LabelConnection' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'LabelConnection' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'edges' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'node' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Label' } },
+										],
+									},
+								},
+							],
+						},
+					},
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'Label' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Label' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'url' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'color' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'description' } },
+				],
+			},
+		},
+	],
+} as unknown as DocumentNode<LabelConnectionFragment, unknown>;
 export const RepoFragmentDoc = {
 	kind: 'Document',
 	definitions: [

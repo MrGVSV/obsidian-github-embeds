@@ -300,7 +300,7 @@ export const PullRequestFragmentDoc = {
 						name: { kind: 'Name', value: 'author' },
 						selectionSet: {
 							kind: 'SelectionSet',
-							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Author' } }],
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
 						},
 					},
 					{
@@ -315,30 +315,7 @@ export const PullRequestFragmentDoc = {
 						],
 						selectionSet: {
 							kind: 'SelectionSet',
-							selections: [
-								{
-									kind: 'Field',
-									name: { kind: 'Name', value: 'edges' },
-									selectionSet: {
-										kind: 'SelectionSet',
-										selections: [
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: 'node' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{
-															kind: 'FragmentSpread',
-															name: { kind: 'Name', value: 'Label' },
-														},
-													],
-												},
-											},
-										],
-									},
-								},
-							],
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'LabelConnection' } }],
 						},
 					},
 					{
@@ -349,6 +326,22 @@ export const PullRequestFragmentDoc = {
 							selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
 						},
 					},
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'Label' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Label' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'url' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'color' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'description' } },
 				],
 			},
 		},
@@ -377,7 +370,7 @@ export const PullRequestFragmentDoc = {
 		},
 		{
 			kind: 'FragmentDefinition',
-			name: { kind: 'Name', value: 'Author' },
+			name: { kind: 'Name', value: 'User' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Actor' } },
 			selectionSet: {
 				kind: 'SelectionSet',
@@ -390,17 +383,31 @@ export const PullRequestFragmentDoc = {
 		},
 		{
 			kind: 'FragmentDefinition',
-			name: { kind: 'Name', value: 'Label' },
-			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Label' } },
+			name: { kind: 'Name', value: 'LabelConnection' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'LabelConnection' } },
 			selectionSet: {
 				kind: 'SelectionSet',
 				selections: [
 					{ kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'url' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'color' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'description' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'edges' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'node' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Label' } },
+										],
+									},
+								},
+							],
+						},
+					},
 				],
 			},
 		},
@@ -451,7 +458,7 @@ export const IssueFragmentDoc = {
 						name: { kind: 'Name', value: 'author' },
 						selectionSet: {
 							kind: 'SelectionSet',
-							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Author' } }],
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
 						},
 					},
 					{
@@ -466,30 +473,7 @@ export const IssueFragmentDoc = {
 						],
 						selectionSet: {
 							kind: 'SelectionSet',
-							selections: [
-								{
-									kind: 'Field',
-									name: { kind: 'Name', value: 'edges' },
-									selectionSet: {
-										kind: 'SelectionSet',
-										selections: [
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: 'node' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{
-															kind: 'FragmentSpread',
-															name: { kind: 'Name', value: 'Label' },
-														},
-													],
-												},
-											},
-										],
-									},
-								},
-							],
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'LabelConnection' } }],
 						},
 					},
 					{
@@ -500,6 +484,22 @@ export const IssueFragmentDoc = {
 							selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
 						},
 					},
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'Label' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Label' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'url' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'color' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'description' } },
 				],
 			},
 		},
@@ -528,7 +528,7 @@ export const IssueFragmentDoc = {
 		},
 		{
 			kind: 'FragmentDefinition',
-			name: { kind: 'Name', value: 'Author' },
+			name: { kind: 'Name', value: 'User' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Actor' } },
 			selectionSet: {
 				kind: 'SelectionSet',
@@ -541,17 +541,31 @@ export const IssueFragmentDoc = {
 		},
 		{
 			kind: 'FragmentDefinition',
-			name: { kind: 'Name', value: 'Label' },
-			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Label' } },
+			name: { kind: 'Name', value: 'LabelConnection' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'LabelConnection' } },
 			selectionSet: {
 				kind: 'SelectionSet',
 				selections: [
 					{ kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'url' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'color' } },
-					{ kind: 'Field', name: { kind: 'Name', value: 'description' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'edges' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'node' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Label' } },
+										],
+									},
+								},
+							],
+						},
+					},
 				],
 			},
 		},
@@ -659,7 +673,7 @@ export const IssueDocument = {
 		},
 		{
 			kind: 'FragmentDefinition',
-			name: { kind: 'Name', value: 'Author' },
+			name: { kind: 'Name', value: 'User' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Actor' } },
 			selectionSet: {
 				kind: 'SelectionSet',
@@ -683,6 +697,36 @@ export const IssueDocument = {
 					{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'color' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'description' } },
+				],
+			},
+		},
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'LabelConnection' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'LabelConnection' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: '__typename' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'edges' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'node' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Label' } },
+										],
+									},
+								},
+							],
+						},
+					},
 				],
 			},
 		},
@@ -728,7 +772,7 @@ export const IssueDocument = {
 						name: { kind: 'Name', value: 'author' },
 						selectionSet: {
 							kind: 'SelectionSet',
-							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Author' } }],
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
 						},
 					},
 					{
@@ -743,30 +787,7 @@ export const IssueDocument = {
 						],
 						selectionSet: {
 							kind: 'SelectionSet',
-							selections: [
-								{
-									kind: 'Field',
-									name: { kind: 'Name', value: 'edges' },
-									selectionSet: {
-										kind: 'SelectionSet',
-										selections: [
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: 'node' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{
-															kind: 'FragmentSpread',
-															name: { kind: 'Name', value: 'Label' },
-														},
-													],
-												},
-											},
-										],
-									},
-								},
-							],
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'LabelConnection' } }],
 						},
 					},
 					{
@@ -818,7 +839,7 @@ export const IssueDocument = {
 						name: { kind: 'Name', value: 'author' },
 						selectionSet: {
 							kind: 'SelectionSet',
-							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Author' } }],
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'User' } }],
 						},
 					},
 					{
@@ -833,30 +854,7 @@ export const IssueDocument = {
 						],
 						selectionSet: {
 							kind: 'SelectionSet',
-							selections: [
-								{
-									kind: 'Field',
-									name: { kind: 'Name', value: 'edges' },
-									selectionSet: {
-										kind: 'SelectionSet',
-										selections: [
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: 'node' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{
-															kind: 'FragmentSpread',
-															name: { kind: 'Name', value: 'Label' },
-														},
-													],
-												},
-											},
-										],
-									},
-								},
-							],
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'LabelConnection' } }],
 						},
 					},
 					{
