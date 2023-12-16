@@ -1,0 +1,17 @@
+.container {
+	font-size: var(--font-smallest);
+
+	:global(.callout) {
+		// For some reason the callout's default blend mode causes the title to be cut off.
+		mix-blend-mode: normal;
+
+		:global(.callout-title) {
+			align-items: center;
+		}
+
+		:global(svg.svg-icon) {
+			width: 1.15em;
+			height: 1.15em;
+		}
+	}
+}
