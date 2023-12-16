@@ -1,15 +1,15 @@
 .embed {
-  .repo-link {
-  }
+	.repo-link {
+	}
 
-  .issue-number {
-    display: inline;
-    font-weight: var(--font-light);
-    color: var(--text-faint);
-  }
+	.issue-number {
+		display: inline;
+		font-weight: var(--font-light);
+		color: var(--text-faint);
+	}
 
-  .issue-title {
-    display: inline;
-    flex: 1;
-  }
+	.issue-title {
+		display: inline;
+		flex: 1;
+	}
 }
