@@ -1,4 +1,4 @@
-import { App, Component } from 'obsidian';
+import { App } from 'obsidian';
 import { GitHubEmbedsSettingsTab } from '../GitHubEmbedsSettingsTab';
 import GithubEmbedsPlugin from '../../main';
 import styles from './BaseSection.module.scss';
@@ -24,7 +24,6 @@ export abstract class BaseSection {
 	}
 
 	protected abstract title(): string | undefined;
-	protected abstract onload(): void;
 
-	protected resettable<T extends Component>() {}
+	protected abstract onload(): void;
 }
