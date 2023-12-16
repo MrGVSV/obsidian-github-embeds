@@ -2,7 +2,7 @@ import esbuild from 'esbuild';
 import process from 'process';
 import builtins from 'builtin-modules';
 import fs from 'fs';
-import { postcssModules, sassPlugin } from 'esbuild-sass-plugin';
+import {postcssModules, sassPlugin} from 'esbuild-sass-plugin';
 import path from 'path';
 
 const banner = `/*
@@ -36,9 +36,33 @@ const context = await esbuild.context({
 		{
 			name: 'graphql-redirect',
 			setup: (build) => {
-				build.onResolve({ filter: /\.graphql$/ }, (args) => {
-					return { path: path.join(args.resolveDir, args.path + '.ts') };
+				build.onResolve({filter: /\.graphql$/}, (args) => {
+					return {path: path.join(args.resolveDir, args.path + '.ts')};
 				});
+			},
+		},
+		{
+			name: 'svg-to-text',
+			setup: (build) => {
+				build.onResolve({filter: /\.svg$/}, args => ({
+					path: args.path,
+					namespace: 'svg-import',
+				}))
+
+				build.onLoad({filter: /.*/, namespace: 'svg-import'}, async (args) => {
+					return new Promise((resolve, reject) => {
+						fs.readFile(args.path, (err, data) => {
+							if (err) {
+								reject(err)
+							} else {
+								resolve({
+									contents: data.toString(),
+									loader: 'text',
+								})
+							}
+						})
+					})
+				})
 			},
 		},
 	],

@@ -33,10 +33,15 @@ export function isDarkMode(app: App): boolean {
  *
  * @param app The app
  * @param callback A callback with a boolean indicating whether the theme is dark or not.
+ * @param immediate Whether to run the callback immediately.
  *
  * @returns An {@link EventRef} that can be used to unregister the listener.
  */
-export function onCssChange(app: App, callback: (isDarkMode: boolean) => void): EventRef {
+export function onCssChange(app: App, callback: (isDarkMode: boolean) => void, immediate = false): EventRef {
+	if (immediate) {
+		callback(isDarkMode(app));
+	}
+
 	return app.workspace.on('css-change', () => {
 		callback(isDarkMode(app));
 	});

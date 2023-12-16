@@ -1,7 +1,16 @@
-fragment Author on Actor {
+fragment User on Actor {
 	url
 	login
 	avatarUrl
+}
+
+fragment LabelConnection on LabelConnection {
+	__typename
+	edges {
+		node {
+			...Label
+		}
+	}
 }
 
 fragment Label on Label {

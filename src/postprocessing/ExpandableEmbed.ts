@@ -1,7 +1,8 @@
 import { Settings, SettingsProvider } from '../settings';
 import styles from './ExpandableEmbed.module.scss';
 import { EmbedComponent } from './EmbedComponent';
-import {Platform} from "obsidian";
+import { Platform } from 'obsidian';
+import { Shard } from '../components/core';
 
 /**
  * Base embed component.
@@ -9,10 +10,11 @@ import {Platform} from "obsidian";
  * Sets up creation and reload boilerplate used by expandable embeds.
  */
 export abstract class ExpandableEmbed extends EmbedComponent {
-	private detailsEl: HTMLDetailsElement;
-	private summaryEl: HTMLElement;
-	private contentEl: HTMLDivElement;
 	protected abstract get rootClass(): string;
+
+	private _details: Shard;
+	private _summary: Shard;
+	private _content: Shard;
 
 	protected constructor(
 		containerEl: HTMLElement,
@@ -47,18 +49,21 @@ export abstract class ExpandableEmbed extends EmbedComponent {
 		);
 	}
 
-	public toggle(open?: boolean) {
-		this.detailsEl.toggleAttribute('open', open);
+	onunload() {
+		super.onunload();
+		this.clear();
 	}
 
-	protected abstract createHeadingPrefix(container: HTMLElement): void;
-	protected abstract createHeading(container: HTMLElement): void;
-	protected abstract createInfo(container: HTMLElement): void;
-	protected abstract createContent(contentEl: HTMLDivElement): void;
+	protected abstract createHeadingPrefix(container: Shard): void;
+
+	protected abstract createHeading(container: Shard): void;
+
+	protected abstract createInfo(container: Shard): void;
+
+	protected abstract createContent(content: Shard): void;
 
 	protected onSettingsChange(prev: Settings | null, curr: Settings) {}
 
-	/** @virtual */
 	protected shouldReload(prev: Settings | null, curr: Settings): boolean {
 		return false;
 	}
@@ -73,14 +78,17 @@ export abstract class ExpandableEmbed extends EmbedComponent {
 
 	protected onReload() {}
 
-	private reload() {
-		this.containerEl.empty();
+	public toggle(open?: boolean) {
+		this._details.element.toggleAttribute('open', open);
+	}
 
-		this.detailsEl = this.containerEl.createEl('details', {
-			cls: [styles.embed, this.rootClass],
-		});
-		this.summaryEl = this.detailsEl.createEl('summary', styles.summary);
-		this.contentEl = this.detailsEl.createDiv(styles.content);
+	private reload() {
+		this._details = this.addChild(
+			new Shard(this.containerEl, this.settings, 'details', { cls: [styles.embed, this.rootClass] }),
+		);
+
+		this._summary = this._details.createShard('summary', styles.summary);
+		this._content = this._details.createShard('div', styles.content);
 
 		this.onReload();
 		this.reloadSummary();
@@ -88,9 +96,9 @@ export abstract class ExpandableEmbed extends EmbedComponent {
 	}
 
 	private reloadSummary() {
-		this.summaryEl.empty();
+		this._summary.empty();
 
-		const indicator = this.summaryEl.createSpan({ text: '▶︎', cls: styles.indicator });
+		const indicator = this._summary.createEl('span', { text: '▶︎', cls: styles.indicator });
 		if (Platform.isIosApp) {
 			// Help out VoiceOver since it won't give focus to the `<summary />` element
 			// (at least, not without making all children unreachable).
@@ -101,28 +109,31 @@ export abstract class ExpandableEmbed extends EmbedComponent {
 			indicator.setAttr('aria-hidden', true);
 		}
 
-		const heading = this.summaryEl.createEl('h1', styles.heading);
+		const heading = this._summary.createShard('h1', styles.heading);
 		this.createHeading(heading);
 		if (!heading.hasChildNodes()) {
-			heading.remove();
+			this._summary.removeChild(heading);
 		}
 
-		const prefix = this.summaryEl.createDiv(styles.prefix);
+		const prefix = this._summary.createShard('div', styles.prefix);
 		this.createHeadingPrefix(prefix);
 		if (!prefix.hasChildNodes()) {
-			prefix.remove();
+			this._summary.removeChild(prefix);
 		}
 
-		const info = this.summaryEl.createDiv(styles.info);
+		const info = this._summary.createShard('div', styles.info);
 		this.createInfo(info);
 		if (!info.hasChildNodes()) {
-			info.remove();
+			this._summary.removeChild(info);
 		}
 	}
 
 	private reloadContent() {
-		this.contentEl.empty();
+		this._content.empty();
+		this.createContent(this._content);
+	}
 
-		this.createContent(this.contentEl);
+	private clear() {
+		this._details?.empty();
 	}
 }

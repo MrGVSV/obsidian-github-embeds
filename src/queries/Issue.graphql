@@ -25,14 +25,10 @@ fragment PullRequest on PullRequest {
 	body
 	createdAt
 	author {
-		...Author
+		...User
 	}
 	labels(first: 20) {
-		edges {
-			node {
-				...Label
-			}
-		}
+		...LabelConnection
 	}
 	comments {
 		totalCount
@@ -54,14 +50,10 @@ fragment Issue on Issue {
 	body
 	createdAt
 	author {
-		...Author
+		...User
 	}
 	labels(first: 20) {
-		edges {
-			node {
-				...Label
-			}
-		}
+		...LabelConnection
 	}
 	comments {
 		totalCount
