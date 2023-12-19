@@ -7,10 +7,10 @@ import { Content, FileSnippet, FileUrl, IssueUrl } from './types';
 import { extractLines, extToLang } from '../utilities';
 import { BranchDocument, BranchQueryVariables } from '../queries/Branch.graphql';
 
-const issueRegex = /^https:\/\/github\.com\/([\w-]+)\/([\w-]+)\/(?:issues|pull)\/(\d+)/i;
+const issueRegex = /^https:\/\/github\.com\/([\w-]+)\/([\w.-]+)\/(?:issues|pull)\/(\d+)/i;
 // This Regex intentionally does not match branches with slashes in them.
-// @see https://regex101.com/r/1n33Oh/2
-const fileRegex = /^https:\/\/github\.com\/([\w-]+)\/([\w-]+)\/blob\/([^/]+)\/([^#]*)(?:#L(\d+)(?:-L(\d+))?)?/i;
+// @see https://regex101.com/r/1n33Oh/3
+const fileRegex = /^https:\/\/github\.com\/([\w-]+)\/([\w.-]+)\/blob\/([^/]+)\/([^#]*)(?:#L(\d+)(?:-L(\d+))?)?/i;
 
 /**
  * The API client used to fetch data from GitHub.
