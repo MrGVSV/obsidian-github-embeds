@@ -155,7 +155,7 @@ export class Client {
 			url: fileUrl,
 			owner,
 			repo,
-			path,
+			path: decodeURIComponent(path),
 			ref: { kind: isCommit ? 'commit' : 'branch', value: ref },
 			fullContent,
 			snippetContent,
