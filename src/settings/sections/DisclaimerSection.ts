@@ -23,7 +23,7 @@ export class DisclaimerSection extends BaseSection {
 	}
 
 	private get cautionText(): string {
-		return 'Please take caution when syncing this vault. GitHub token is stored in plaintext in `./.obsidian/plugins/github-embeds/data.json`.';
+		return 'Please take caution when syncing this vault. Your GitHub token will be stored in plaintext in `./.obsidian/plugins/github-embeds/data.json`.';
 	}
 
 	private get disclaimerText(): string {
