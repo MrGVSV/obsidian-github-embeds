@@ -1,4 +1,6 @@
 import { App, Component, htmlToMarkdown, MarkdownRenderer } from 'obsidian';
+import { Shard } from '../components/core';
+import { Langs } from './languages';
 
 /**
  * Find a class in the given class list that matches the given regex.
@@ -29,15 +31,23 @@ export function renderMarkdown(app: App, markdown: string, el: HTMLElement, comp
 }
 
 /**
+ * Sanitizes the HTML in the given shard so that it can be properly rendered by Obsidian.
+ */
+export function sanitizeHtml(shard: Shard) {
+	replaceCodeBlocks(shard);
+	replaceAdmonitions(shard);
+}
+
+/**
  * Replaces GitHub's code blocks with Obsidian's code blocks.
  *
- * Applies to all descendants of `container`.
+ * Applies to all descendants of `shard`.
  */
-export function replaceCodeBlocks(app: App, container: Element, component: Component) {
+function replaceCodeBlocks(shard: Shard) {
 	// GitHub renders their code blocks to a `div > pre` structure.
 	// This div has a `data-snippet-clipboard-copy-content` attribute that
 	// contains the raw text of the code block.
-	const codeBlocks = container.querySelectorAll<HTMLDivElement>('div[data-snippet-clipboard-copy-content]');
+	const codeBlocks = shard.element.querySelectorAll<HTMLDivElement>('div[data-snippet-clipboard-copy-content]');
 	for (const codeBlock of codeBlocks) {
 		const pre = codeBlock.querySelector(':scope > pre');
 		if (!pre) {
@@ -45,26 +55,29 @@ export function replaceCodeBlocks(app: App, container: Element, component: Compo
 		}
 
 		// We can find the code block's language in one of two ways:
-		const lang =
+		const maybeLang =
 			// 1. The `lang` attribute on the `pre` element.
 			//    This only exists if the language is not recognized by GitHub.
 			pre.getAttribute('lang') ??
 			// 2. The `highlight-source-[LANG]` class on the `div` element.
 			findClass(codeBlock.classList, /highlight-source-(.*)/)?.[1];
 
+		// Get the corresponding language tag if it exists.
+		const tag = (maybeLang && Langs.get(maybeLang)) ?? '';
+
 		const code = codeBlock.getAttribute('data-snippet-clipboard-copy-content');
 
 		codeBlock.empty();
-		renderMarkdown(app, `\`\`\`${lang}\n${code}\n\`\`\``, codeBlock, component);
+		renderMarkdown(shard.settings.app, `\`\`\`${tag}\n${code}\n\`\`\``, codeBlock, shard);
 	}
 }
 
 /**
  * Replaces GitHub's admonitions with Obsidian's admonitions.
  *
- * Applies to all descendants of `container`.
+ * Applies to all descendants of `shard`.
  */
-export function replaceAdmonitions(app: App, container: Element, component: Component) {
+function replaceAdmonitions(shard: Shard) {
 	function getAdmonitionType(elt: HTMLElement) {
 		if (elt.classList.contains('markdown-alert-note')) {
 			return 'note';
@@ -78,7 +91,7 @@ export function replaceAdmonitions(app: App, container: Element, component: Comp
 		return null;
 	}
 
-	const admonitions = container.querySelectorAll<HTMLDivElement>(
+	const admonitions = shard.element.querySelectorAll<HTMLDivElement>(
 		'div.markdown-alert-note, div.markdown-alert-warning, div.markdown-alert-important',
 	);
 	for (const admonition of admonitions) {
@@ -98,6 +111,6 @@ export function replaceAdmonitions(app: App, container: Element, component: Comp
 		admonition.empty();
 
 		const admonitionMarkdown = `> [!${admonitionType}]\n> ${content}`;
-		renderMarkdown(app, admonitionMarkdown, admonition, component);
+		renderMarkdown(shard.settings.app, admonitionMarkdown, admonition, shard);
 	}
 }

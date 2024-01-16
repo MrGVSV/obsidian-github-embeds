@@ -1,6 +1,6 @@
 import { Component, sanitizeHTMLToDom } from 'obsidian';
 import { nanoid } from 'nanoid';
-import { replaceAdmonitions, replaceCodeBlocks } from '../../utilities';
+import { sanitizeHtml } from '../../utilities';
 import { SettingsProvider } from '../../settings';
 
 type Ctor1 = [parent: Shard, tag: keyof HTMLElementTagNameMap, o?: DomElementInfo | string];
@@ -202,8 +202,7 @@ export class Shard extends Component {
 		const shard = this.createShard(tag, o, callback);
 		shard.element.append(sanitizeHTMLToDom(html));
 
-		replaceAdmonitions(this.settings.app, shard.element, this);
-		replaceCodeBlocks(this.settings.app, shard.element, this);
+		sanitizeHtml(shard);
 
 		return shard;
 	}
