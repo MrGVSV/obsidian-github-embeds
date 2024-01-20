@@ -9,6 +9,7 @@ import { FileEmbed } from './postprocessing/FileEmbed';
 import { LoadingEmbed } from './postprocessing/LoadingEmbed';
 import styles from './styles.scss';
 import { EmbedContainer } from './postprocessing/EmbedContainer';
+import { Langs } from './utilities';
 
 // Initialize Apollo Client __DEV__ variable
 window.__DEV__ = process.env.NODE_ENV === 'development';
@@ -17,6 +18,8 @@ export default class GithubEmbedsPlugin extends SettingsProvider {
 	private client: Client | null = null;
 
 	async onload() {
+		await Langs.initialize(this.app, this);
+
 		await this.loadSettings();
 		this.addSettingTab(new GitHubEmbedsSettingsTab(this.app, this));
 

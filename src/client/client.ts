@@ -4,7 +4,7 @@ import { IssueDocument } from '../queries/Issue.graphql';
 import { ApolloClient, ApolloQueryResult, DocumentNode, from, HttpLink, InMemoryCache } from '@apollo/client/core';
 import { RetryLink } from '@apollo/client/link/retry';
 import { Content, FileSnippet, FileUrl, IssueUrl } from './types';
-import { extractLines, extToLang } from '../utilities';
+import { extractLines, Langs } from '../utilities';
 import { BranchDocument, BranchQueryVariables } from '../queries/Branch.graphql';
 
 const issueRegex = /^https:\/\/github\.com\/([\w-]+)\/([\w.-]+)\/(?:issues|pull)\/(\d+)/i;
@@ -165,7 +165,7 @@ export class Client {
 						end: endLine ? parseInt(endLine) : undefined,
 				  }
 				: undefined,
-			lang: extToLang(ext),
+			lang: Langs.get(ext),
 		};
 	}
 
